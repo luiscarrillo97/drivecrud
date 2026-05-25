@@ -17,4 +17,4 @@ COPY --from=build-env /app/out .
 # Exponer el puerto por defecto (Cloud Run lo intercepta automáticamente)
 EXPOSE 8080
 
-ENTRYPOINT ["dotnet", "TuProyectoMinimalAPI.dll"]
+ENTRYPOINT ["dotnet", "CRUDDRIVE.dll"]

@@ -1,4 +1,5 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+# Etapa de compilación usando el SDK de .NET 10
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build-env
 WORKDIR /app
 
 # Copiar csproj y restaurar dependencias
@@ -9,12 +10,12 @@ RUN dotnet restore
 COPY . ./
 RUN dotnet publish -c Release -o out
 
-# Etapa de ejecución
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+# Etapa de ejecución usando el entorno de ASP.NET 10
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-# Exponer el puerto por defecto (Cloud Run lo intercepta automáticamente)
+# Exponer el puerto que usa Cloud Run
 EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "CRUDDRIVE.dll"]
